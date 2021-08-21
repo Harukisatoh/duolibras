@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "duolibras",
+    "slug": "duolibras",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "duolibras"
+}
