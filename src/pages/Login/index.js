@@ -11,10 +11,12 @@ import {
 import { EvilIcons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../context/auth";
 
 import styles, { FOOTER_HEIGHT, ICON_SIZE } from "./styles";
 
 export default function Login() {
+  const { signInWithEmail } = useAuth();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -80,12 +82,14 @@ export default function Login() {
   };
 
   async function handleEmailSignIn() {
-    // setLoading(true);
-    // const error = await signInWithEmail(email, password);
-    // if (error) {
-    //   setErrorMessage(error.toString(error));
-    //   setLoading(false);
-    // }
+    setLoading(true);
+
+    // If request succeeds user will be redirected to profile page,
+    // so there's no need to setLoading(false) if it succeeds
+    signInWithEmail(email, password).catch((err) => {
+      setLoading(false);
+      setErrorMessage(err);
+    });
   }
 
   function handleNavigationToSignup() {
