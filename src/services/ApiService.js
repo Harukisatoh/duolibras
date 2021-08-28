@@ -7,14 +7,14 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    let errorMessage = "Algo deu errado :c";
+    let errorObject = { code: "unknown-error", message: "Algo deu errado :c" };
 
     if (error.response) {
       // Request made and server responded
-      errorMessage = error.response.data.message;
+      errorObject = error.response.data.data;
     }
 
-    return Promise.reject(errorMessage);
+    return Promise.reject(errorObject);
   }
 );
 

@@ -7,13 +7,21 @@ import {
   TouchableOpacity,
   Animated,
   Keyboard,
+  ActivityIndicator,
 } from "react-native";
-import { EvilIcons } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+
+// Icons
+import { EvilIcons } from "@expo/vector-icons";
+
+// Contexts
 import { useAuth } from "../../context/auth";
 
+// Styles
 import styles, { FOOTER_HEIGHT, ICON_SIZE } from "./styles";
+
+const LOADING_INDICATOR_SIZE = 28;
 
 export default function Login() {
   const { signInWithEmail } = useAuth();
@@ -87,8 +95,8 @@ export default function Login() {
     // If request succeeds user will be redirected to profile page,
     // so there's no need to setLoading(false) if it succeeds
     signInWithEmail(email, password).catch((err) => {
+      setErrorMessage(err.message);
       setLoading(false);
-      setErrorMessage(err);
     });
   }
 
@@ -97,7 +105,7 @@ export default function Login() {
   }
 
   function handleForgotPassword() {
-    // navigation.navigate("ForgotPassword");
+    navigation.navigate("ForgotPassword");
   }
 
   return (
@@ -154,7 +162,11 @@ export default function Login() {
           onPress={handleEmailSignIn}
           style={styles.signInButton}
         >
-          <Text style={styles.signInButtonText}>Entrar</Text>
+          {loading ? (
+            <ActivityIndicator size={LOADING_INDICATOR_SIZE} color="#00BFFF" />
+          ) : (
+            <Text style={styles.signInButtonText}>Entrar</Text>
+          )}
         </RectButton>
         <TouchableOpacity
           disabled={loading}

@@ -7,5 +7,6 @@ export const DARK_GRAY_COLOR = "#444442";
 export const WHITE_COLOR = "#FFF";
 export const RED_COLOR = "#FF0000";
 export const BLACK_COLOR = "rgba(0, 0, 0, 1)";
-export const GREEN_COLOR = "rgba(30, 252, 30, 1)";
+// export const GREEN_COLOR = "rgba(30, 252, 30, 1)";
+export const GREEN_COLOR = "#40ff00";
 export const TRANSPARENT_COLOR = "rgba(0, 0, 0, 0)";

@@ -7,4 +7,8 @@ export default class AuthService {
       password,
     });
   }
+
+  static async resetPassword(email) {
+    return ApiService.post("/reset-password", { email });
+  }
 }
