@@ -1,41 +1,41 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
   TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Animated,
   Keyboard,
+  Animated,
+  SafeAreaView,
   ActivityIndicator,
-  Platform,
 } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
+import { BorderlessButton, RectButton } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
 // Icons
-import { EvilIcons } from "@expo/vector-icons";
+import { EvilIcons, Feather } from "@expo/vector-icons";
 
 // Contexts
 import { useAuth } from "../../context/auth";
 
 // Styles
 import styles, { FOOTER_HEIGHT, ICON_SIZE } from "./styles";
+import { WHITE_COLOR } from "../../../styles.global";
 
 const LOADING_INDICATOR_SIZE = 28;
 
-export default function Login() {
-  const { signInWithEmail } = useAuth();
+export default function Signup() {
+  const { authWithFacebook, signUpWithEmail } = useAuth();
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
   const footerAnim = useRef(new Animated.Value(FOOTER_HEIGHT)).current;
 
   const iconSizeAnim = useRef(new Animated.Value(ICON_SIZE)).current;
   const iconOpacityAnim = useRef(new Animated.Value(1)).current;
+  const backIconOpacityAnim = useRef(new Animated.Value(1)).current;
   const AnimatedEvilIcons = Animated.createAnimatedComponent(EvilIcons);
 
   useEffect(() => {
@@ -70,6 +70,11 @@ export default function Login() {
       toValue: 0,
       useNativeDriver: false,
     }).start();
+    Animated.timing(backIconOpacityAnim, {
+      duration: Platform.OS === "ios" ? event.duration + 150 : 0,
+      toValue: 0,
+      useNativeDriver: false,
+    }).start();
   };
 
   const keyboardDidHide = (event) => {
@@ -88,29 +93,42 @@ export default function Login() {
       toValue: 1,
       useNativeDriver: false,
     }).start();
+    Animated.timing(backIconOpacityAnim, {
+      duration: Platform.OS === "ios" ? event.duration + 150 : 0,
+      toValue: 1,
+      useNativeDriver: false,
+    }).start();
   };
 
-  async function handleEmailSignIn() {
+  async function handleEmailSignUp() {
     setLoading(true);
 
     // If request succeeds user will be redirected to profile page,
     // so there's no need to setLoading(false) if it succeeds
-    signInWithEmail(email, password).catch((err) => {
+    signUpWithEmail(email, password).catch((err) => {
       setErrorMessage(err.message);
       setLoading(false);
     });
   }
 
-  function handleNavigationToSignup() {
-    navigation.navigate("Signup");
-  }
-
-  function handleForgotPassword() {
-    navigation.navigate("ForgotPassword");
+  function handleGoBack() {
+    navigation.goBack();
   }
 
   return (
     <SafeAreaView style={styles.container}>
+      <Animated.View
+        style={{
+          position: "absolute",
+          left: 20,
+          top: 50,
+          opacity: backIconOpacityAnim,
+        }}
+      >
+        <BorderlessButton enabled={!loading} onPress={handleGoBack}>
+          <Feather name="arrow-left" size={35} color={WHITE_COLOR} />
+        </BorderlessButton>
+      </Animated.View>
       <View style={styles.header}>
         <AnimatedEvilIcons
           name="user"
@@ -119,7 +137,11 @@ export default function Login() {
         />
       </View>
       <View style={styles.formContainer}>
-        <Text style={styles.headerText}>Entre com a sua conta</Text>
+        <Text style={styles.headerText}>
+          Crie uma conta com
+          {"\n"}
+          seu email e senha
+        </Text>
         <TextInput
           style={styles.emailInput}
           autoCompleteType="email"
@@ -135,7 +157,7 @@ export default function Login() {
         <TextInput
           style={styles.passwordInput}
           autoCompleteType="password"
-          placeholder="Digite sua senha"
+          placeholder="Digite uma senha"
           placeholderTextColor="#FFF"
           secureTextEntry
           onChange={(event) => {
@@ -143,40 +165,23 @@ export default function Login() {
             setErrorMessage("");
           }}
         />
-        <View style={styles.forgotPasswordContainer}>
-          <TouchableOpacity
-            disabled={loading}
-            onPress={handleForgotPassword}
-            activeOpacity={0.5}
-            style={styles.forgotPasswordButton}
-          >
-            <Text style={styles.forgotPasswordText}>
-              Esqueci a minha senha?
-            </Text>
-          </TouchableOpacity>
-        </View>
         <View style={styles.errorContainer}>
           <Text style={styles.errorMessage}>{errorMessage}</Text>
         </View>
         <RectButton
           enabled={!loading}
-          onPress={handleEmailSignIn}
-          style={styles.signInButton}
+          onPress={handleEmailSignUp}
+          style={styles.signUpButton}
         >
           {loading ? (
-            <ActivityIndicator size={LOADING_INDICATOR_SIZE} color="#00BFFF" />
+            <ActivityIndicator
+              color={WHITE_COLOR}
+              size={LOADING_INDICATOR_SIZE}
+            />
           ) : (
-            <Text style={styles.signInButtonText}>Entrar</Text>
+            <Text style={styles.signUpButtonText}>Cadastrar-se</Text>
           )}
         </RectButton>
-        <TouchableOpacity
-          disabled={loading}
-          onPress={handleNavigationToSignup}
-          activeOpacity={0.5}
-          style={styles.createAccountButton}
-        >
-          <Text style={styles.createAccountText}>Criar uma conta</Text>
-        </TouchableOpacity>
       </View>
       <Animated.View style={[styles.footerContainer, { height: footerAnim }]}>
         <Text style={styles.footerText}>
@@ -186,7 +191,7 @@ export default function Login() {
         </Text>
         <RectButton
           enabled={!loading}
-          // onPress={authWithFacebook}
+          onPress={authWithFacebook}
           style={styles.facebookButton}
         >
           <Text style={styles.buttonText}>Conectar-se com o Facebook</Text>

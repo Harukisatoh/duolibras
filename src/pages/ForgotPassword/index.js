@@ -24,7 +24,7 @@ const LOADING_INDICATOR_SIZE = 28;
 
 function ForgotPassword() {
   const navigation = useNavigation();
-  const { resetPassword } = useAuth();
+  const { resetEmailPassword } = useAuth();
 
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ function ForgotPassword() {
   function handleForgotPassword() {
     setLoading(true);
 
-    resetPassword(email)
+    resetEmailPassword(email)
       .then(() => {
         successButtonAnim();
         setButtonEnabled(false);

@@ -7,13 +7,18 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  async function signInWithEmail(email, password) {
-    const userInfo = await AuthService.loginWithEmail(email, password);
+  async function signUpWithEmail(email, password) {
+    const userInfo = await AuthService.signUpWithEmail(email, password);
     setUser(userInfo);
   }
 
-  async function resetPassword(email) {
-    await AuthService.resetPassword(email);
+  async function signInWithEmail(email, password) {
+    const userInfo = await AuthService.signInWithEmail(email, password);
+    setUser(userInfo);
+  }
+
+  async function resetEmailPassword(email) {
+    await AuthService.resetEmailPassword(email);
   }
 
   return (
@@ -21,8 +26,9 @@ export const AuthProvider = ({ children }) => {
       value={{
         signed: !!user,
         user,
+        signUpWithEmail,
         signInWithEmail,
-        resetPassword,
+        resetEmailPassword,
       }}
     >
       {children}

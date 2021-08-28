@@ -1,14 +1,18 @@
 import ApiService from "../services/ApiService";
 
 export default class AuthService {
-  static async loginWithEmail(email, password) {
-    return ApiService.post("/login/email", {
+  static async signUpWithEmail(email, password) {
+    return ApiService.post("/auth/sign-up/email", { email, password });
+  }
+
+  static async signInWithEmail(email, password) {
+    return ApiService.post("/auth/sign-in/email", {
       email,
       password,
     });
   }
 
-  static async resetPassword(email) {
-    return ApiService.post("/reset-password", { email });
+  static async resetEmailPassword(email) {
+    return ApiService.post("/auth/reset-password", { email });
   }
 }

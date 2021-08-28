@@ -7,4 +7,6 @@ export default {
   "auth/user-disabled": "Este usuário está desabilitado",
   "auth/too-many-requests":
     "Detectamos atividade suspeita, requisições bloqueadas temporariamente",
+  "auth/email-already-in-use": "Uma conta com este email já existe",
+  "auth/weak-password": "Esta senha é fraca, tente digitar uma maior",
 };
