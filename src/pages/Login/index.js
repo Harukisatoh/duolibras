@@ -21,13 +21,16 @@ import { useAuth } from "../../context/auth";
 
 // Styles
 import styles, { FOOTER_HEIGHT, ICON_SIZE } from "./styles";
+import { MAIN_COLOR, WHITE_COLOR } from "../../../styles.global";
 
-const LOADING_INDICATOR_SIZE = 28;
+const MAIN_BTN_LOADING_INDICATOR_SIZE = 28;
+const FACEBOOK_BTN_LOADING_INDICATOR_SIZE = 25;
 
 export default function Login() {
-  const { signInWithEmail } = useAuth();
+  const { authWithFacebook, signInWithEmail } = useAuth();
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
+  const [mainButtonLoading, setMainButtonLoading] = useState(false);
+  const [facebookButtonLoading, setFacebookButtonLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -90,14 +93,25 @@ export default function Login() {
     }).start();
   };
 
-  async function handleEmailSignIn() {
-    setLoading(true);
+  function handleEmailSignIn() {
+    setMainButtonLoading(true);
 
     // If request succeeds user will be redirected to profile page,
-    // so there's no need to setLoading(false) if it succeeds
+    // so there's no need to setMainButtonLoading(false) if it succeeds
     signInWithEmail(email, password).catch((err) => {
       setErrorMessage(err.message);
-      setLoading(false);
+      setMainButtonLoading(false);
+    });
+  }
+
+  function handleAuthWithFacebook() {
+    setFacebookButtonLoading(true);
+
+    // If request succeeds user will be redirected to profile page,
+    // so there's no need to setFacebookButtonLoading(false) if it succeeds
+    authWithFacebook().catch((err) => {
+      setErrorMessage(err.message);
+      setFacebookButtonLoading(false);
     });
   }
 
@@ -145,7 +159,7 @@ export default function Login() {
         />
         <View style={styles.forgotPasswordContainer}>
           <TouchableOpacity
-            disabled={loading}
+            disabled={mainButtonLoading || facebookButtonLoading}
             onPress={handleForgotPassword}
             activeOpacity={0.5}
             style={styles.forgotPasswordButton}
@@ -159,18 +173,21 @@ export default function Login() {
           <Text style={styles.errorMessage}>{errorMessage}</Text>
         </View>
         <RectButton
-          enabled={!loading}
+          enabled={!mainButtonLoading && !facebookButtonLoading}
           onPress={handleEmailSignIn}
           style={styles.signInButton}
         >
-          {loading ? (
-            <ActivityIndicator size={LOADING_INDICATOR_SIZE} color="#00BFFF" />
+          {mainButtonLoading ? (
+            <ActivityIndicator
+              size={MAIN_BTN_LOADING_INDICATOR_SIZE}
+              color={MAIN_COLOR}
+            />
           ) : (
             <Text style={styles.signInButtonText}>Entrar</Text>
           )}
         </RectButton>
         <TouchableOpacity
-          disabled={loading}
+          disabled={mainButtonLoading || facebookButtonLoading}
           onPress={handleNavigationToSignup}
           activeOpacity={0.5}
           style={styles.createAccountButton}
@@ -185,11 +202,18 @@ export default function Login() {
           conectar-se com seu Facebook
         </Text>
         <RectButton
-          enabled={!loading}
-          // onPress={authWithFacebook}
+          enabled={!mainButtonLoading && !facebookButtonLoading}
+          onPress={handleAuthWithFacebook}
           style={styles.facebookButton}
         >
-          <Text style={styles.buttonText}>Conectar-se com o Facebook</Text>
+          {facebookButtonLoading ? (
+            <ActivityIndicator
+              size={FACEBOOK_BTN_LOADING_INDICATOR_SIZE}
+              color={WHITE_COLOR}
+            />
+          ) : (
+            <Text style={styles.buttonText}>Conectar-se com o Facebook</Text>
+          )}
         </RectButton>
       </Animated.View>
     </SafeAreaView>

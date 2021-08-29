@@ -1,11 +1,17 @@
 import React, { createContext, useState, useContext } from "react";
 
-import AuthService from "../services/Auth";
+// Services
+import AuthService from "../services/AuthService";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
+  async function authWithFacebook() {
+    const userInfo = await AuthService.authWithFacebook();
+    setUser(userInfo);
+  }
 
   async function signUpWithEmail(email, password) {
     const userInfo = await AuthService.signUpWithEmail(email, password);
@@ -26,6 +32,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         signed: !!user,
         user,
+        authWithFacebook,
         signUpWithEmail,
         signInWithEmail,
         resetEmailPassword,

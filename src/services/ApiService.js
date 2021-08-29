@@ -1,10 +1,13 @@
 import axios from "axios";
 
+// Env vars
+import { API_BASE_URL } from "@env";
+
 // Utils
 import getUserFriendlyFirebaseErrorMessage from "../utils/getUserFriendlyFirebaseErrorMessage";
 
 const api = axios.create({
-  baseURL: "https://duolibras-backend.loca.lt",
+  baseURL: API_BASE_URL,
 });
 
 api.interceptors.response.use(

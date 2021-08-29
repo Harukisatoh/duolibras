@@ -3,9 +3,10 @@
     "name": "duolibras",
     "slug": "duolibras",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "facebookScheme": "fb3142186759163076",
+    "facebookAppId": "3142186759163076",
+    "facebookDisplayName": "tcc-project"
   },
   "name": "duolibras"
 }

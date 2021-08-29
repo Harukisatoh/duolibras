@@ -21,7 +21,8 @@ import { useAuth } from "../../context/auth";
 import styles, { FOOTER_HEIGHT, ICON_SIZE } from "./styles";
 import { WHITE_COLOR } from "../../../styles.global";
 
-const LOADING_INDICATOR_SIZE = 28;
+const MAIN_BTN_LOADING_INDICATOR_SIZE = 28;
+const FACEBOOK_BTN_LOADING_INDICATOR_SIZE = 25;
 
 export default function Signup() {
   const { authWithFacebook, signUpWithEmail } = useAuth();
@@ -29,7 +30,8 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const [loading, setLoading] = useState(false);
+  const [mainButtonLoading, setMainButtonLoading] = useState(false);
+  const [facebookButtonLoading, setFacebookButtonLoading] = useState(false);
 
   const footerAnim = useRef(new Animated.Value(FOOTER_HEIGHT)).current;
 
@@ -101,13 +103,24 @@ export default function Signup() {
   };
 
   async function handleEmailSignUp() {
-    setLoading(true);
+    setMainButtonLoading(true);
 
     // If request succeeds user will be redirected to profile page,
-    // so there's no need to setLoading(false) if it succeeds
+    // so there's no need to setMainButtonLoading(false) if it succeeds
     signUpWithEmail(email, password).catch((err) => {
       setErrorMessage(err.message);
-      setLoading(false);
+      setMainButtonLoading(false);
+    });
+  }
+
+  function handleAuthWithFacebook() {
+    setFacebookButtonLoading(true);
+
+    // If request succeeds user will be redirected to profile page,
+    // so there's no need to setFacebookButtonLoading(false) if it succeeds
+    authWithFacebook().catch((err) => {
+      setErrorMessage(err.message);
+      setFacebookButtonLoading(false);
     });
   }
 
@@ -125,7 +138,10 @@ export default function Signup() {
           opacity: backIconOpacityAnim,
         }}
       >
-        <BorderlessButton enabled={!loading} onPress={handleGoBack}>
+        <BorderlessButton
+          enabled={!mainButtonLoading && !facebookButtonLoading}
+          onPress={handleGoBack}
+        >
           <Feather name="arrow-left" size={35} color={WHITE_COLOR} />
         </BorderlessButton>
       </Animated.View>
@@ -169,14 +185,14 @@ export default function Signup() {
           <Text style={styles.errorMessage}>{errorMessage}</Text>
         </View>
         <RectButton
-          enabled={!loading}
+          enabled={!mainButtonLoading && !facebookButtonLoading}
           onPress={handleEmailSignUp}
           style={styles.signUpButton}
         >
-          {loading ? (
+          {mainButtonLoading ? (
             <ActivityIndicator
               color={WHITE_COLOR}
-              size={LOADING_INDICATOR_SIZE}
+              size={MAIN_BTN_LOADING_INDICATOR_SIZE}
             />
           ) : (
             <Text style={styles.signUpButtonText}>Cadastrar-se</Text>
@@ -190,11 +206,18 @@ export default function Signup() {
           conectar-se com seu Facebook
         </Text>
         <RectButton
-          enabled={!loading}
-          onPress={authWithFacebook}
+          enabled={!mainButtonLoading && !facebookButtonLoading}
+          onPress={handleAuthWithFacebook}
           style={styles.facebookButton}
         >
-          <Text style={styles.buttonText}>Conectar-se com o Facebook</Text>
+          {facebookButtonLoading ? (
+            <ActivityIndicator
+              color={WHITE_COLOR}
+              size={FACEBOOK_BTN_LOADING_INDICATOR_SIZE}
+            />
+          ) : (
+            <Text style={styles.buttonText}>Conectar-se com o Facebook</Text>
+          )}
         </RectButton>
       </Animated.View>
     </SafeAreaView>
