@@ -3,7 +3,8 @@ import userFriendlyFirebaseErrors, {
 } from "../common/enum/userFriendlyFirebaseErrors.js";
 
 export default function getUserFriendlyFirebaseErrorMessage(firebaseError) {
-  const message = userFriendlyFirebaseErrors[firebaseError.code];
+  const message =
+    userFriendlyFirebaseErrors[firebaseError?.code] || genericErrorMessage;
 
-  return message ? message : genericErrorMessage;
+  return message;
 }
