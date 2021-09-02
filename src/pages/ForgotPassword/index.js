@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 // Contexts
-import { useAuth } from "../../context/auth";
+import { useAuth } from "../../contexts/auth";
 
 // Styles
 import { WHITE_COLOR, GREEN_COLOR, MAIN_COLOR } from "../../../styles.global";

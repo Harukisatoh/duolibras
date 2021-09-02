@@ -8,7 +8,8 @@ import {
   useFonts,
 } from "@expo-google-fonts/poppins";
 
-import { AuthProvider } from "./src/context/auth";
+import { AuthProvider } from "./src/contexts/auth";
+import { ThemeProvider } from "./src/contexts/theme";
 
 import Routes from "./src/routes";
 
@@ -26,7 +27,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <AuthProvider>
-        <Routes />
+        <ThemeProvider>
+          <Routes />
+        </ThemeProvider>
       </AuthProvider>
     </NavigationContainer>
   );

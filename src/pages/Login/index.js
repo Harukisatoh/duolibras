@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { EvilIcons } from "@expo/vector-icons";
 
 // Contexts
-import { useAuth } from "../../context/auth";
+import { useAuth } from "../../contexts/auth";
 
 // Styles
 import styles, { FOOTER_HEIGHT, ICON_SIZE } from "./styles";

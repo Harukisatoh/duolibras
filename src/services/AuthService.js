@@ -46,6 +46,10 @@ export default class AuthService {
     });
   }
 
+  static async signOut() {
+    return ApiService.post("/auth/sign-out");
+  }
+
   static async resetEmailPassword(email) {
     return ApiService.post("/auth/email/reset-password", { email });
   }
