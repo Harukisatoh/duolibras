@@ -13,6 +13,7 @@ import {
 } from "@expo/vector-icons";
 
 import Header from "../../components/Header";
+import Skeleton from "./Skeleton";
 // import Database from "../../services/Database";
 import { useAuth } from "../../contexts/auth";
 import { useTheme } from "../../contexts/theme";
@@ -29,13 +30,30 @@ function Profile(
   const navigation = useNavigation();
   const { theme } = useTheme();
   const { user: authenticatedUser } = useAuth();
-  const [userDetails, setUserDetails] = useState({});
+
+  const [loading, setLoading] = useState(true);
+
+  const [userName, setUserName] = useState();
+  const [userExperience, setUserExperience] = useState();
+  const [userMoney, setUserMoney] = useState();
+  const [userSignUpDate, setUserSignUpDate] = useState();
+  const [userAvatarUrl, setUserAvatarUrl] = useState();
+
   const [badgesList, setBadgesList] = useState({}); // List of available badges
   const [userBadges, setUserBadges] = useState({}); // Information about all available badges related to a respective user (eg, if it's already been achieved by that user)
   const [badgesToBeShown, setBadgesToBeShown] = useState([]); // Which badges to be shown on the screen
 
-  const componentIsMounted = useRef(true);
+  // const componentIsMounted = useRef(true);
   useEffect(() => {
+    setTimeout(() => {
+      setUserName("Gabriel Haruki");
+      setUserExperience(0);
+      setUserMoney(0);
+      setUserSignUpDate("09/04/2021");
+      setUserAvatarUrl("");
+      setLoading(false);
+    }, 2000);
+
     // Database.getUserDetails(userId, (response) => {
     //   if (componentIsMounted.current) {
     //     setUserDetails(response);
@@ -51,9 +69,9 @@ function Profile(
     //     setUserBadges(response);
     //   }
     // });
-    return () => {
-      componentIsMounted.current = false;
-    };
+    // return () => {
+    //   componentIsMounted.current = false;
+    // };
   }, []);
 
   useEffect(() => {
@@ -114,16 +132,8 @@ function Profile(
     navigation.navigate("EditProfile");
   }
 
-  function handleGoBack() {
-    navigation.goBack();
-  }
-
-  function getFirstName() {
-    if (userDetails.name == undefined) {
-      return "Usuário";
-    } else {
-      return userDetails.name.split(" ")[0];
-    }
+  if (loading) {
+    return <Skeleton />;
   }
 
   return (
@@ -148,19 +158,17 @@ function Profile(
         >
           <View style={styles.basicInfo}>
             <Text style={[styles.name, { color: theme.colors.strongText }]}>
-              {userDetails ? userDetails.name : ""}
+              {userName || ""}
             </Text>
             <Text style={[styles.date, { color: theme.colors.lightText }]}>
-              {userDetails
-                ? `Entrou em ${formatDate(userDetails.signedUpAt)}`
-                : ""}
+              {userSignUpDate ? `Entrou em ${formatDate(userSignUpDate)}` : ""}
             </Text>
           </View>
           <View style={styles.profileImageContainer}>
-            {userDetails.avatar ? (
+            {userAvatarUrl ? (
               <Image
                 style={styles.profileImage}
-                source={{ uri: userDetails.avatar }}
+                source={{ uri: userAvatarUrl }}
               />
             ) : (
               <FontAwesome
@@ -198,7 +206,7 @@ function Profile(
                     { color: theme.colors.strongText },
                   ]}
                 >
-                  {userDetails.experience}
+                  {userExperience}
                 </Text>
                 <Text
                   style={[
@@ -228,7 +236,7 @@ function Profile(
                     { color: theme.colors.strongText },
                   ]}
                 >
-                  {userDetails.money}
+                  {userMoney}
                 </Text>
                 <Text
                   style={[
@@ -341,7 +349,7 @@ function Profile(
               ))
             ) : (
               <View style={styles.badgeContainer}>
-                <View style={styles.badgeInfo}>
+                <View style={styles.emptyBadgeInfo}>
                   <Text
                     style={[
                       styles.emptyBadgeTitle,

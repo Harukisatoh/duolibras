@@ -1,199 +1,210 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
+  container: {
+    flex: 1,
+  },
 
-    profileInfo: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 20,
-        borderBottomWidth: 2
-    },
+  profileInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 20,
+    borderBottomWidth: 2,
+  },
 
-    basicInfo: {
-        flex: 1,
-        justifyContent: 'center',
-        marginRight: 10
-    },
+  basicInfo: {
+    flex: 1,
+    justifyContent: "center",
+    marginRight: 10,
+  },
 
-    name: {
-        fontSize: 22,
-        fontFamily: 'Poppins_700Bold'
-    },
+  name: {
+    fontSize: 22,
+    fontFamily: "Poppins_700Bold",
+  },
 
-    date: {
-        fontSize: 14,
-        fontFamily: 'Poppins_400Regular'
-    },
+  date: {
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+  },
 
-    profileImageContainer: {
-        justifyContent: 'center'
-    },
+  profileImageContainer: {
+    justifyContent: "center",
+  },
 
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50
-    },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
 
-    statisticsContainer: {
-        padding: 20
-    },
+  statisticsContainer: {
+    padding: 20,
+  },
 
-    statisticsText: {
-        fontSize: 21,
-        fontFamily: 'Poppins_700Bold'
-    },
+  statisticsText: {
+    fontSize: 21,
+    fontFamily: "Poppins_700Bold",
+  },
 
-    statisticsContent: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 10
-    },
+  statisticsContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
 
-    experienceContainer: {
-        flex: 1,
-        marginRight: 10,
-        borderWidth: 2,
-        borderRadius: 12,
-        flexDirection: 'row',
-        padding: 7
-    },
+  experienceContainer: {
+    flex: 1,
+    marginRight: 10,
+    borderWidth: 2,
+    borderRadius: 12,
+    flexDirection: "row",
+    padding: 7,
+  },
 
-    moneyContainer: {
-        flex: 1,
-        marginLeft: 10,
-        borderWidth: 2,
-        borderRadius: 12,
-        flexDirection: 'row',
-        padding: 7
-    },
+  moneyContainer: {
+    flex: 1,
+    marginLeft: 10,
+    borderWidth: 2,
+    borderRadius: 12,
+    flexDirection: "row",
+    padding: 7,
+  },
 
-    experienceIcon: {
-        marginRight: 8
-    },
+  experienceIcon: {
+    marginRight: 8,
+  },
 
-    experienceInfo: {
-        flex: 1
-    },
+  experienceInfo: {
+    flex: 1,
+  },
 
-    moneyInfo: {
-        flex: 1
-    },
+  moneyInfo: {
+    flex: 1,
+  },
 
-    experienceTitle: {
-        fontSize: 20,
-        fontFamily: 'Poppins_700Bold'
-    },
+  experienceTitle: {
+    fontSize: 20,
+    fontFamily: "Poppins_700Bold",
+  },
 
-    moneyTitle: {
-        fontSize: 20,
-        fontFamily: 'Poppins_700Bold'
-    },
+  moneyTitle: {
+    fontSize: 20,
+    fontFamily: "Poppins_700Bold",
+  },
 
-    experienceDescription: {
-        fontSize: 14,
-        fontFamily: 'Poppins_400Regular'
-    },
+  experienceDescription: {
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+  },
 
-    moneyDescription: {
-        fontSize: 14,
-        fontFamily: 'Poppins_400Regular'
-    },
+  moneyDescription: {
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+  },
 
-    badgesContainer: {
-        paddingHorizontal: 20,
-        marginBottom: 20
-    },
+  badgesContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
 
-    badgesText: {
-        fontSize: 21,
-        fontFamily: 'Poppins_700Bold'
-    },
+  badgesText: {
+    fontSize: 21,
+    fontFamily: "Poppins_700Bold",
+  },
 
-    badgesContent: {
-        marginTop: 10,
-        borderWidth: 2,
-        borderRadius: 12
-    },
+  badgesContent: {
+    marginTop: 10,
+    borderWidth: 2,
+    borderRadius: 12,
+  },
 
-    badgeContainer: {
-        padding: 7,
-        flexDirection: 'row'
-    },
+  badgeContainer: {
+    padding: 7,
+    flexDirection: "row",
+  },
 
-    badgeIconContainer: {
-        borderBottomWidth: 6,
-        borderRightWidth: 6,
-        borderRadius: 15,
-        borderBottomLeftRadius: 7,
-        paddingHorizontal: 5,
-        paddingVertical: 10
-    },
+  badgeIconContainer: {
+    flex: 0.25,
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomWidth: 6,
+    borderRightWidth: 6,
+    borderRadius: 15,
+    borderBottomLeftRadius: 7,
+  },
 
-    badgeQuantityIconContainer: {
-        position: 'absolute',
-        paddingHorizontal: 4,
-        paddingVertical: 2,
-        borderRadius: 20,
-        right: 0,
-        bottom: -7
-    },
+  badgeQuantityIconContainer: {
+    position: "absolute",
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    borderRadius: 20,
+    right: 0,
+    bottom: -7,
+  },
 
-    badgeQuantityIconText: {
-        fontSize: 14,
-        fontFamily: 'Poppins_400Regular'
-    },
+  badgeQuantityIconText: {
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+  },
 
-    badgeImage: {
-        width: 66,
-        height: 77,
-        borderRadius: 15,
-        borderBottomLeftRadius: 7
-    },
+  badgeImage: {
+    width: 66,
+    height: 77,
+    borderRadius: 15,
+    borderBottomLeftRadius: 7,
+  },
 
-    badgeQuantityImageContainer: {
-        position: 'absolute',
-        paddingHorizontal: 4,
-        paddingVertical: 2,
-        borderRadius: 50,
-        right: 0,
-        bottom: 0
-    },
+  badgeQuantityImageContainer: {
+    position: "absolute",
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    borderRadius: 50,
+    right: 0,
+    bottom: 0,
+  },
 
-    badgeQuantityImageText: {
-        fontSize: 14,
-        fontFamily: 'Poppins_400Regular'
-    },
+  badgeQuantityImageText: {
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+  },
 
-    badgeInfo: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+  badgeInfo: {
+    flex: 0.75,
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
-    badgeBottomDivision: {
-        borderBottomWidth: 2
-    },
+  badgeBottomDivision: {
+    borderBottomWidth: 2,
+  },
 
-    emptyBadgeTitle: {
-        fontSize: 16,
-        fontFamily: 'Poppins_700Bold',
-        alignSelf: 'center',
-        padding: 15
-    },
+  emptyBadgeInfo: {
+    flex: 1,
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
-    badgeTitle: {
-        fontSize: 20,
-        fontFamily: 'Poppins_700Bold'
-    },
+  emptyBadgeTitle: {
+    fontSize: 16,
+    fontFamily: "Poppins_700Bold",
+    alignSelf: "center",
+    padding: 15,
+  },
 
-    badgeDescription: {
-        fontSize: 14,
-        fontFamily: 'Poppins_400Regular'
-    }
-})
+  badgeTitle: {
+    fontSize: 20,
+    fontFamily: "Poppins_700Bold",
+    textAlign: "center",
+  },
 
-export default styles
+  badgeDescription: {
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+    textAlign: "center",
+  },
+});
+
+export default styles;
